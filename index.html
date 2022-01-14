@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+
+
+<body>
+    <main>
+        <section id="main-container">
+            <div id="display">
+                <p id="display-digits" data-previous-num="">0</p>
+            </div>
+            <div id="input-box">
+                <div id="first-row" class="rows">
+                    <div class="input" id="clear">C</div>
+                    <div class="input" id="clear-entry">CE</div>
+                    <div class="input" id="percentage">%</div>
+                    <div class="input operator" id="division" data-operator="/">/</div>
+                </div>
+                <div id="second-row" class="rows">
+                    <div class="input num-input" id="seven">7</div>
+                    <div class="input num-input" id="eight">8</div>
+                    <div class="input num-input" id="nine">9</div>
+                    <div class="input operator" id="multiplication" data-operator="*">X</div>
+                </div>
+                <div id="third-row" class="rows">
+                    <div class="input num-input" id="four">4</div>
+                    <div class="input num-input" id="five">5</div>
+                    <div class="input num-input" id="six">6</div>
+                    <div class="input operator" id="subtraction" data-operator="-">-</div>
+                </div>
+                <div id="fourth-row" class="rows">
+                    <div class="input num-input" id="one">1</div>
+                    <div class="input num-input" id="two">2</div>
+                    <div class="input num-input" id="three">3</div>
+                    <div class="input operator" id="addition" data-operator="+">+</div>
+                </div>
+                <div id="fifth-row" class="rows">
+                    <div class="input num-input" id="zero">0</div>
+                    <div class="input num-input" id="decimal">.</div>
+                    <div class="input" id="equals">=</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>

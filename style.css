@@ -1,0 +1,120 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+#main-container{
+    padding: 10px;
+    background-color: #343a40;
+    height: 55%;
+    width: 40vw;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    border: black 2px solid;
+    border-radius: 7px;
+}
+
+#input-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80%;
+}
+
+.rows{
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 23%;
+}
+
+.rows > .input{
+    border-right: none;
+    border-bottom: none;
+}
+
+.rows .input:last-of-type{
+    border-right: #3b4046 2px solid;
+}
+
+.rows:last-of-type .input{
+    border-bottom: #3b4046 2px solid;
+}
+
+#fifth-row .input:first-of-type{
+    flex-grow: 2;
+}
+
+.input{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: #3b4046 2px solid;
+    border-radius: 5px;
+    width: 25%;
+    height: auto;
+}
+
+.clicked{
+    color: white;
+    border: #3b4046 5px solid;
+    transition: ease-in-out;
+}
+
+#display{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    height: 23%;
+    padding: 10px 0 10px;
+    border-radius: 7px;
+    background: #6ACF65;
+}
+
+#display-digits{
+    overflow: hidden;
+    font-size: xx-large;
+    padding-right: 8px;
+}  
+
+.active{
+    background-color: white;
+    color: #3b4046;
+}
+
+#first-row{
+    padding-top: 10px;
+}
+#clear,#clear-entry{
+    background-color: #f94144;
+}
+#equals{
+    background-color: #f3722c;
+}
+
+@media only screen and (max-width: 600px) {
+    #main-container{
+        width: 100vw;
+        height: 100%;
+    }
+    #first-row{
+        padding-top: 30px;
+    }
+}
