@@ -36,33 +36,20 @@ let display = document.getElementById("display-digits")
 // Create function to set display numbers depending on whether a num-input was pressed yet.
 // Also if user attempts to enter second decimal it is removed with slice.
 let setDisplay = inp => {
+    numInpBool = true
+    console.log(numInpBool)
     display.textContent == "0" ? display.textContent = inp.target.textContent : display.textContent += inp.target.textContent
     if (display.textContent.split(".").length - 1 > 1) {
         display.textContent = display.textContent.slice(0, -1)
     }
 }
-let sum = 0
+let sum = ""
 // Create function to set display to first "num-input" after an operator is selected
 let resetAfterOperator = inp => {
     if (document.querySelector(".active") !== null) {
-        let activeOperator = document.querySelector(".active").dataset.operator
-        console.log(activeOperator)
+        // let activeOperator = document.querySelector(".active").dataset.operator
         display.textContent = inp.target.textContent
         operators.forEach(el => el.classList.remove("active"))
-        switch (activeOperator) {
-            case "/": console.log("divide")
-                break;
-            case "*": console.log("multi")
-                break;
-            case "-": console.log("subtract")
-                break;
-            case "+":
-                console.log(parseFloat(prevNum) + parseFloat(display.textContent))
-                sum = (parseFloat(prevNum) + parseFloat(display.textContent))
-                break;
-            default:
-                console.log(`sorry we dont have this ${activeOperator}`)
-        }
     }
 }
 
@@ -75,9 +62,9 @@ numInputs.forEach(el => el.addEventListener("click", resetAfterOperator))
 // Add eventListener to "clear button" to set display back to zero.
 buttons.clear.addEventListener("click", () => {
     display.textContent !== "0" ? display.textContent = "0" : false
-    prevNum = 0
+    prevNumber = 0
     operators.forEach(el => el.classList.remove("active"))
-    sum = 0
+    sum = ""
 
 
 })
@@ -99,25 +86,88 @@ let operators = document.querySelectorAll(".operator")
 operators.forEach(el => el.addEventListener("click", setActive))
 
 
-let prevNum = display.dataset.previousNum
+let prevNumber = display.dataset.previousNum
 let setPrevNum = () => {
     let count = 0;
-    console.log(count)
     if (count == 0) {
-        prevNum = display.textContent
-        console.log(prevNum)
+        prevNumber = display.textContent
         count++
-        console.log(count)
     }
-    display.textContent = sum
-
 }
 
-// let calc = (prevNum, activeOperator, curNum) => {
-//     prevNum activeOperator curNum
-// }
+let calc = (prevNum, curNum) => {
+    if (document.querySelector(".active") !== null) {
+        let activeOperator = document.querySelector(".active").dataset.operator
+        currOperator = activeOperator
+        if (prevNum && display.textContent && boolean == false && numInpBool == true) {
+            switch (activeOperator) {
+                case "/": console.log("divide")
+                    break;
+                case "*": console.log("multi")
+                    break;
+                case "-": console.log("subtract")
+                    break;
+                case "+":
+                    if (document.querySelector(".active") !== null) {
+                        if (sum != "") {
+                            sum = (parseFloat(sum) + parseFloat(curNum))
+                            display.textContent = sum
+                        }
+                        sum = (parseFloat(prevNum) + parseFloat(curNum))
+                        display.textContent = sum
+                    }
+                    break;
+                default:
+                    console.log(`sorry we dont have this ${activeOperator}`)
+            }
+        }
+    }
+}
 
-// buttons.equals.addEventListener("click", calc)
+let currOperator = document.querySelector("#equals").dataset.operator
+let equivalent = (prevNum, curNum) => {
+    if (prevNum && display.textContent && numInpBool == true) {
+        switch (currOperator) {
+            case "/": console.log("divide")
+                break;
+            case "*": console.log("multi")
+                break;
+            case "-": console.log("subtract")
+                break;
+            case "+":
+                if (sum != "") {
+                    sum = (parseFloat(sum) + parseFloat(curNum))
+                    display.textContent = sum
+                }
+                sum = (parseFloat(prevNum) + parseFloat(curNum))
+                display.textContent = sum
+                break;
+            default:
+                console.log(`sorry we dont have this ${currOperator}`)
+        }
+    }
+}
+
+// Create boolean that will be on if the last input was a number.
+// If last input was not a number the boolean is set to false to prevent consecutive operator and equal clicks from creating bug.
+let numInpBool = ""
+// Create boolean variable to toggle on and off depending on what eventlistener calls it.
+// If anything other than equal calls an event listener it will be false to prevent consecutive equal clicks from creating bug.
+let boolean = ""
+buttons.addition.addEventListener("click", () => {
+    calc(prevNumber, display.textContent)
+    numInpBool = false
+    boolean = false
+    console.log(boolean)
+    console.log(numInpBool)
+})
 buttons.addition.addEventListener("click", setPrevNum)
+
+buttons.equals.addEventListener("click", () => {
+    equivalent(prevNumber, display.textContent)
+    numInpBool = false
+    boolean = true
+    console.log(boolean)
+})
 
 
