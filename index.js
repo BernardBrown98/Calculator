@@ -86,14 +86,7 @@ let operators = document.querySelectorAll(".operator")
 operators.forEach(el => el.addEventListener("click", setActive))
 
 
-let prevNumber = display.dataset.previousNum
-let setPrevNum = () => {
-    let count = 0;
-    if (count == 0) {
-        prevNumber = display.textContent
-        count++
-    }
-}
+
 
 let calc = (prevNum, curNum) => {
     if (document.querySelector(".active") !== null) {
@@ -102,20 +95,36 @@ let calc = (prevNum, curNum) => {
         if (prevNum && display.textContent && boolean == false && numInpBool == true) {
             switch (activeOperator) {
                 case "/": console.log("divide")
-                    break;
-                case "*": console.log("multi")
-                    break;
-                case "-": console.log("subtract")
-                    break;
-                case "+":
-                    if (document.querySelector(".active") !== null) {
-                        if (sum != "") {
-                            sum = (parseFloat(sum) + parseFloat(curNum))
-                            display.textContent = sum
-                        }
-                        sum = (parseFloat(prevNum) + parseFloat(curNum))
+                    if (sum != "") {
+                        sum = (parseFloat(sum) / parseFloat(curNum))
                         display.textContent = sum
                     }
+                    sum = (parseFloat(prevNum) / parseFloat(curNum))
+                    display.textContent = sum
+                    break;
+                case "*": console.log("multi")
+                    if (sum != "") {
+                        sum = (parseFloat(sum) * parseFloat(curNum))
+                        display.textContent = sum
+                    }
+                    sum = (parseFloat(prevNum) * parseFloat(curNum))
+                    display.textContent = sum
+                    break;
+                case "-": console.log("subtract")
+                    if (sum != "") {
+                        sum = (parseFloat(sum) - parseFloat(curNum))
+                        display.textContent = sum
+                    }
+                    sum = (parseFloat(prevNum) - parseFloat(curNum))
+                    display.textContent = sum
+                    break;
+                case "+":
+                    if (sum != "") {
+                        sum = (parseFloat(sum) + parseFloat(curNum))
+                        display.textContent = sum
+                    }
+                    sum = (parseFloat(prevNum) + parseFloat(curNum))
+                    display.textContent = sum
                     break;
                 default:
                     console.log(`sorry we dont have this ${activeOperator}`)
@@ -129,10 +138,28 @@ let equivalent = (prevNum, curNum) => {
     if (prevNum && display.textContent && numInpBool == true) {
         switch (currOperator) {
             case "/": console.log("divide")
+                if (sum != "") {
+                    sum = (parseFloat(sum) / parseFloat(curNum))
+                    display.textContent = sum
+                }
+                sum = (parseFloat(prevNum) / parseFloat(curNum))
+                display.textContent = sum
                 break;
             case "*": console.log("multi")
+                if (sum != "") {
+                    sum = (parseFloat(sum) * parseFloat(curNum))
+                    display.textContent = sum
+                }
+                sum = (parseFloat(prevNum) * parseFloat(curNum))
+                display.textContent = sum
                 break;
             case "-": console.log("subtract")
+                if (sum != "") {
+                    sum = (parseFloat(sum) - parseFloat(curNum))
+                    display.textContent = sum
+                }
+                sum = (parseFloat(prevNum) - parseFloat(curNum))
+                display.textContent = sum
                 break;
             case "+":
                 if (sum != "") {
@@ -141,6 +168,10 @@ let equivalent = (prevNum, curNum) => {
                 }
                 sum = (parseFloat(prevNum) + parseFloat(curNum))
                 display.textContent = sum
+                // Prevent imprecise calculation
+                if (sum === 0.30000000000000004) {
+                    display.textContent = .3
+                }
                 break;
             default:
                 console.log(`sorry we dont have this ${currOperator}`)
@@ -154,20 +185,29 @@ let numInpBool = ""
 // Create boolean variable to toggle on and off depending on what eventlistener calls it.
 // If anything other than equal calls an event listener it will be false to prevent consecutive equal clicks from creating bug.
 let boolean = ""
-buttons.addition.addEventListener("click", () => {
-    calc(prevNumber, display.textContent)
-    numInpBool = false
-    boolean = false
-    console.log(boolean)
-    console.log(numInpBool)
-})
-buttons.addition.addEventListener("click", setPrevNum)
+let prevNumber = display.dataset.previousNum
+
+// POSSIBLY DELETE LATER
+// buttons.addition.addEventListener("click", () => {
+//     calc(prevNumber, display.textContent)
+//     numInpBool = false
+//     boolean = false
+//     // Set previous number to current display.textContent so it can be used in future operation
+//     prevNumber = display.textContent
+// })
 
 buttons.equals.addEventListener("click", () => {
     equivalent(prevNumber, display.textContent)
     numInpBool = false
     boolean = true
-    console.log(boolean)
 })
 
-
+operators.forEach(el => {
+    el.addEventListener("click", () => {
+        calc(prevNumber, display.textContent)
+        numInpBool = false
+        boolean = false
+        // Set previous number to current display.textContent so it can be used in future operation
+        prevNumber = display.textContent
+    })
+})
